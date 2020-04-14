@@ -6,7 +6,7 @@ var app = require('koa')()
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-
+const tasks = require('./routes/tasks')
 // error handler
 onerror(app);
 
@@ -15,12 +15,13 @@ app.use(views('views', {
   root: __dirname + '/views',
   default: 'jade'
 }));
+app.use(tasks.routes(), tasks.allowedMethods())
 app.use(require('koa-bodyparser')());
 app.use(json());
 app.use(logger());
-
+require('./store').init()
 app.use(function *(next){
-  require('./store').init()
+
   var start = new Date;
   yield next;
   var ms = new Date - start;
