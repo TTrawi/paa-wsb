@@ -1,3 +1,4 @@
+require('./store').init()
 var app = require('koa')()
   , logger = require('koa-logger')
   , json = require('koa-json')
