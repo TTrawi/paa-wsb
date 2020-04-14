@@ -1,4 +1,3 @@
-require('./store').init()
 var app = require('koa')()
   , logger = require('koa-logger')
   , json = require('koa-json')
@@ -21,6 +20,7 @@ app.use(json());
 app.use(logger());
 
 app.use(function *(next){
+  require('./store').init()
   var start = new Date;
   yield next;
   var ms = new Date - start;
